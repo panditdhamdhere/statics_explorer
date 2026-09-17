@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --background: #050605;
+  --foreground: #e3e6e3;
+  --muted: #8b928b;
+  --faint: #5c635c;
+  --accent: #c8f24a;
+  --accent-fg: #06210a;
+  --panel: #0b0f0b;
+  --panel-2: #101510;
+  --line: #1c241c;
+  --ring: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --font-sans: var(--font-sans-loaded);
+  --font-mono: var(--font-mono-loaded);
+
+  --color-zinc-50: #eef2ee;
+  --color-zinc-100: #e3e6e3;
+  --color-zinc-200: #cfd4cf;
+  --color-zinc-300: #b3bab3;
+  --color-zinc-400: #8b928b;
+  --color-zinc-500: #6e766e;
+  --color-zinc-600: #545b54;
+  --color-zinc-700: #2a352a;
+  --color-zinc-800: #1c241c;
+  --color-zinc-900: #101510;
+  --color-zinc-950: #050605;
+
+  --color-amber-100: #e8f5c4;
+  --color-amber-200: #d4ee8a;
+  --color-amber-400: #c8f24a;
+  --color-amber-900: #3a4a18;
+  --color-amber-950: #141a0a;
+
+  --color-emerald-300: #c8f24a;
+  --color-emerald-400: #c8f24a;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  color: var(--foreground);
+}
+
+.kicker {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.terminal-line {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
+
+.terminal-line strong {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.data-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 38%) 1fr auto;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding: 0.85rem 0;
+}
+
+.data-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.data-row:last-child {
+  padding-bottom: 0;
+}
+
+@media (max-width: 639px) {
+  .data-row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}
