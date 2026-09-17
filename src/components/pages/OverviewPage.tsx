@@ -27,9 +27,10 @@ export function OverviewPage() {
           Explore the recorded Statics deployment
         </h1>
         <p className="max-w-2xl text-[15px] leading-7 text-muted">
-          A read-only developer explorer for the Statics Protocol Robinhood Chain
-          Testnet integration-beta. Addresses, methods, and SDK exports are taken
-          from the official deployment snapshot.
+          A developer explorer for the Statics Protocol Robinhood Chain Testnet
+          integration-beta. You can inspect the recorded deployment and mint TPA1
+          on testnet. Addresses, methods, and SDK exports come from the official
+          snapshot.
         </p>
         <NetworkBadge />
         <div className="pt-2">

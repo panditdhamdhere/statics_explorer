@@ -114,7 +114,7 @@ export function ConnectWallet() {
             <p className="px-3 pt-2 text-xs text-red-300">
               {toUserErrorMessage(
                 connectError,
-                "Unable to connect the wallet. The explorer still works in read-only mode.",
+                "Unable to connect the wallet. Public reads still work without a connected wallet.",
               )}
             </p>
           ) : null}

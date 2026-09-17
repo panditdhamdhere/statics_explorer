@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s · Statics Explorer",
   },
   description:
-    "A developer-focused, read-only explorer for the Statics Protocol Robinhood Chain Testnet integration-beta deployment.",
+    "A developer explorer for the Statics Protocol Robinhood Chain Testnet integration-beta. Inspect the recorded deployment and mint TPA1 on testnet.",
   icons: {
     icon: "/logo.svg",
   },
