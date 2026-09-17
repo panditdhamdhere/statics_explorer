@@ -56,12 +56,12 @@ export const robinhoodChainTestnet = defineChain({
 
 ## 4. Wallet connection
 
-Injected wallets are configured with wagmi. Reads work without a wallet. Interact requires:
+Injected wallets (EIP-1193) are always configured with wagmi. When `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` is set, WalletConnect is added as a second connector. Reads work without a wallet. Interact requires:
 
 - a connected account
 - chain ID `46630`
 
-The UI can prompt a switch. It does not change networks silently.
+The UI can prompt a switch. It does not change networks silently. Robinhood Chain Testnet is a custom chain; some WalletConnect wallets may need the network added before they will switch.
 
 ## 5. Reading TPA1
 

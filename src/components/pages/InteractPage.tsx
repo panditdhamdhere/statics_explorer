@@ -63,7 +63,7 @@ export function InteractPage() {
       {!isConnected ? (
         <EmptyState
           title="Connect a wallet to interact"
-          detail="Public reads stay available without a wallet. Minting TPA1 requires an injected wallet on Robinhood Chain Testnet."
+          detail="Public reads stay available without a wallet. Minting TPA1 requires a connected wallet on Robinhood Chain Testnet."
         >
           <ConnectWallet />
         </EmptyState>

@@ -103,7 +103,7 @@ Open [http://localhost:3000](http://localhost:3000). If that port is taken, Next
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `NEXT_PUBLIC_ROBINHOOD_TESTNET_RPC_URL` | Yes, for live reads and Interact | Robinhood Chain Testnet JSON-RPC endpoint |
-| `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` | No | Reserved; the current wallet path uses injected wallets |
+| `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` | No | WalletConnect Cloud project ID. When set, Connect wallet offers WalletConnect (QR / mobile) in addition to injected browser wallets |
 
 If the RPC URL is missing, verified deployment metadata still renders and the UI shows that the testnet connection is unavailable. The app does not fall back to fake protocol data.
 

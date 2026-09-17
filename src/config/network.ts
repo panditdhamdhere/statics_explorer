@@ -28,6 +28,11 @@ export function isRpcConfigured(): boolean {
   return Boolean(getConfiguredRpcUrl());
 }
 
+export function getWalletConnectProjectId(): string | undefined {
+  const value = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID?.trim();
+  return value ? value : undefined;
+}
+
 export const robinhoodChainTestnet = defineChain({
   id: ROBINHOOD_TESTNET_CHAIN_ID,
   name: ROBINHOOD_TESTNET_NAME,

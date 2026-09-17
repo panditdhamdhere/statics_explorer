@@ -9,6 +9,19 @@ import { toUserErrorMessage } from "@/lib/errors";
 
 const emptySubscribe = () => () => {};
 
+function connectorLabel(connector: { id: string; name: string }) {
+  if (connector.id === "walletConnect") return "WalletConnect";
+  if (connector.id === "injected" || connector.name === "Injected") {
+    return "Browser wallet";
+  }
+  return connector.name;
+}
+
+function connectorHint(connector: { id: string }) {
+  if (connector.id === "walletConnect") return "QR / mobile";
+  return "EIP-1193";
+}
+
 export function ConnectWallet() {
   const [open, setOpen] = useState(false);
   const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
@@ -86,7 +99,8 @@ export function ConnectWallet() {
           </p>
           {uniqueConnectors.length === 0 ? (
             <p className="px-3 py-3 text-sm text-muted">
-              No injected wallet was detected. Install a browser wallet to connect.
+              No wallet connector is available. Install a browser wallet, or
+              set NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID for WalletConnect.
             </p>
           ) : (
             uniqueConnectors.map((connector) => (
@@ -96,17 +110,17 @@ export function ConnectWallet() {
                 className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm text-foreground hover:bg-panel-2"
                 onClick={() => {
                   connect(
-                    { connector, chainId: ROBINHOOD_TESTNET_CHAIN_ID },
+                    connector.id === "walletConnect"
+                      ? { connector }
+                      : { connector, chainId: ROBINHOOD_TESTNET_CHAIN_ID },
                     { onSuccess: () => setOpen(false) },
                   );
                 }}
               >
-                <span>
-                  {connector.name === "Injected"
-                    ? "Browser wallet"
-                    : connector.name}
+                <span>{connectorLabel(connector)}</span>
+                <span className="text-[11px] text-faint">
+                  {connectorHint(connector)}
                 </span>
-                <span className="text-[11px] text-faint">EIP-1193</span>
               </button>
             ))
           )}
@@ -114,7 +128,8 @@ export function ConnectWallet() {
             <p className="px-3 pt-2 text-xs text-red-300">
               {toUserErrorMessage(
                 connectError,
-                "Unable to connect the wallet. Public reads still work without a connected wallet.",
+                connectError.message ||
+                  "Unable to connect the wallet. Public reads still work without a connected wallet.",
               )}
             </p>
           ) : null}
