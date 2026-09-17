@@ -27,13 +27,9 @@ export function PositionPage() {
   return (
     <AppShell
       kicker="PositionNFT"
-      title="PositionNFT explorer"
-      description="Read a PositionNFT from the deployed StaticsDiamond interface. This page does not create, close, stake, or transfer positions."
+      title="PositionNFT"
+      description="Look up a position by ID on StaticsDiamond."
     >
-      <p className="mb-6 text-sm text-zinc-500">
-        This page uses the deployed PositionNFT interface. Available fields depend on the deployment ABI.
-      </p>
-
       <form onSubmit={onSubmit} className="mb-8 flex flex-col gap-3 sm:flex-row">
         <Input
           value={value}
@@ -49,14 +45,14 @@ export function PositionPage() {
 
       {snapshot?.nextPositionId !== undefined ? (
         <p className="mb-6 text-xs text-zinc-500">
-          Live nextPositionId() is {snapshot.nextPositionId.toString()}. That value is the Diamond&apos;s next ID cursor, not proof that a given ID exists.
+          Live nextPositionId(): {snapshot.nextPositionId.toString()}
         </p>
       ) : null}
 
       {status === "idle" ? (
         <EmptyState
-          title="No PositionNFT queried yet"
-          detail="Enter a numeric PositionNFT ID and read the deployed interface. The explorer will not assume the ID exists."
+          title="No position loaded"
+          detail="Enter a numeric PositionNFT ID."
         />
       ) : null}
 
@@ -68,7 +64,7 @@ export function PositionPage() {
         <ErrorState
           detail={toUserErrorMessage(
             error,
-            "Unable to read this contract on Robinhood Chain Testnet. Check the RPC configuration or try again.",
+            "RPC read failed.",
           )}
         />
       ) : null}

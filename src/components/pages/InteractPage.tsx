@@ -48,22 +48,21 @@ export function InteractPage() {
   return (
     <AppShell
       kicker="Interact"
-      title="Mint TPA1 on testnet"
-      description="A documented Robinhood Chain Testnet flow: quoteMint against StaticsDiamond, exact ERC-20 approvals, then mint. TPA1 is delivered to the connected wallet as BasketToken."
+      title="Mint TPA1"
+      description="Quote, approve, and mint TPA1 on Robinhood Chain Testnet."
     >
       <p className="mb-8 max-w-3xl text-sm leading-6 text-muted">
-        This mint does not create a PositionNFT. After TPA1 arrives in the wallet,
-        inspect existing positions separately in the{" "}
+        TPA1 is minted to your wallet as BasketToken. It does not create a{" "}
         <Link href="/position" className="text-foreground underline underline-offset-4">
-          PositionNFT explorer
+          PositionNFT
         </Link>
         .
       </p>
 
       {!isConnected ? (
         <EmptyState
-          title="Connect a wallet to interact"
-          detail="Public reads stay available without a wallet. Minting TPA1 requires a connected wallet on Robinhood Chain Testnet."
+          title="Connect a wallet"
+          detail="You can read the protocol without a wallet. Minting needs one on Robinhood Chain Testnet."
         >
           <ConnectWallet />
         </EmptyState>
@@ -71,7 +70,7 @@ export function InteractPage() {
         <div className="mb-8 space-y-4">
           <ErrorState
             title="Wrong network"
-            detail="This integration only submits transactions on Robinhood Chain Testnet, chain ID 46630. The app will not switch the network silently."
+            detail="Switch to Robinhood Chain Testnet (chain ID 46630)."
           />
           <Button
             disabled={isSwitching}
@@ -118,25 +117,24 @@ export function InteractPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-muted">Unable to read wallet token balances.</p>
+                <p className="text-sm text-muted">Could not load balances.</p>
               )}
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle>Need testnet assets?</CardTitle>
+              <CardTitle>Faucet</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm leading-6 text-muted">
-                Official ownerless faucet at{" "}
+                Testnet faucet at{" "}
                 <AddressDisplay
                   className="inline-flex"
                   value={staticsDeployment.contracts.staticsFaucet.address}
                 />
-                . Inventory is mock USDG, STATICS, TSLA, PLTR, and AMD. Cooldown is
-                one day per wallet. Calldata is built with{" "}
-                <code>buildTestnetFaucetClaimCall()</code>.
+                . Dispenses mock USDG, STATICS, TSLA, PLTR, and AMD. One claim per
+                day.
               </p>
               {faucet.isPending ? (
                 <LoadingState title="Reading faucet" />
@@ -425,14 +423,13 @@ export function InteractPage() {
                   </DataRow>
                 ))}
                 <p className="mt-4 text-sm leading-6 text-muted">
-                  Values are wallet ERC-20 balances re-read after the confirmed
-                  receipt. This mint does not mint or update a PositionNFT.
+                  Wallet balances after the confirmed receipt.
                 </p>
                 <Link
                   href="/position"
                   className="mt-3 inline-flex text-sm text-foreground underline underline-offset-4"
                 >
-                  Open PositionNFT explorer
+                  Open PositionNFT
                 </Link>
               </CardContent>
             </Card>

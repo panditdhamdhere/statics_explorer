@@ -13,11 +13,9 @@ export function NetworkStatus() {
 
   if (!mounted || !isConnected) {
     return (
-      <p className="terminal-line">
-        Network : <strong>{ROBINHOOD_TESTNET_NAME}</strong>
-        <span className="ml-4 hidden sm:inline">
-          Wallet : <strong>not connected</strong>
-        </span>
+      <p className="text-[12px] text-muted">
+        {ROBINHOOD_TESTNET_NAME}
+        <span className="ml-3 hidden sm:inline">Wallet disconnected</span>
       </p>
     );
   }
@@ -25,15 +23,12 @@ export function NetworkStatus() {
   const correct = chainId === ROBINHOOD_TESTNET_CHAIN_ID;
 
   return (
-    <p className="terminal-line">
-      Network :{" "}
+    <p className="text-[12px] text-muted">
       <span className={correct ? "font-medium text-accent" : "font-medium text-red-300"}>
-        {correct ? ROBINHOOD_TESTNET_NAME : "wrong network"}
+        {correct ? ROBINHOOD_TESTNET_NAME : "Wrong network"}
       </span>
       {address ? (
-        <span className="ml-4 hidden sm:inline">
-          Wallet : <strong>{truncateAddress(address, 4)}</strong>
-        </span>
+        <span className="ml-3 hidden sm:inline">{truncateAddress(address, 4)}</span>
       ) : null}
     </p>
   );

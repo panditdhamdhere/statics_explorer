@@ -8,11 +8,7 @@ export function Kicker({
   children: ReactNode;
   className?: string;
 }) {
-  const label =
-    typeof children === "string" && !children.trimStart().startsWith("/")
-      ? `/// ${children}`
-      : children;
-  return <p className={cn("kicker", className)}>{label}</p>;
+  return <p className={cn("kicker", className)}>{children}</p>;
 }
 
 export function DataRow({

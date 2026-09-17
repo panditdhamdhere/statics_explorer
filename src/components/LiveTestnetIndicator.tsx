@@ -8,18 +8,16 @@ export function LiveTestnetIndicator() {
 
   if (health.unavailable) {
     return (
-      <span className="terminal-line">
-        Testnet connection unavailable
-      </span>
+      <span className="text-[12px] text-muted">RPC unavailable</span>
     );
   }
 
   return (
-    <span className="terminal-line">
-      <strong>LIVE TESTNET</strong>
+    <span className="text-[12px] text-muted">
+      <span className="font-medium text-accent">Testnet</span>
       <span className="ml-3 hidden sm:inline">
-        {ROBINHOOD_TESTNET_NAME} · chain {ROBINHOOD_TESTNET_CHAIN_ID}
-        {health.blockNumber !== undefined ? ` · block ${health.blockNumber.toString()}` : ""}
+        {ROBINHOOD_TESTNET_NAME} · {ROBINHOOD_TESTNET_CHAIN_ID}
+        {health.blockNumber !== undefined ? ` · ${health.blockNumber.toString()}` : ""}
       </span>
     </span>
   );

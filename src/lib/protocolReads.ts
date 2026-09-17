@@ -555,7 +555,7 @@ export async function readPosition(rawId: string): Promise<PositionReadResult> {
       status: "not_found",
       positionId,
       message:
-        "Unable to read a position for this ID on the selected deployment.",
+        "No position at this ID.",
     };
   }
 
@@ -570,7 +570,7 @@ export async function readPosition(rawId: string): Promise<PositionReadResult> {
   } catch (error) {
     const message = toUserErrorMessage(
       error,
-      "Unable to read a position for this ID on the selected deployment.",
+      "No position at this ID.",
     );
     if (!positionState) {
       return { status: "not_found", positionId, message };

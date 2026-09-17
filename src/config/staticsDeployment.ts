@@ -10,11 +10,8 @@ function poolId(value: string): Hex {
 }
 
 /**
- * Recorded Robinhood Chain Testnet integration-beta deployment.
- * Addresses come from the official deployment snapshot and the task-verified
- * address list. These are not mainnet addresses.
- *
- * Source: https://docs.staticsprotocol.com/docs/reference/robinhood-testnet-deployment/
+ * Robinhood Chain Testnet integration-beta.
+ * https://docs.staticsprotocol.com/docs/reference/robinhood-testnet-deployment/
  */
 export const staticsDeployment = {
   network: "Robinhood Chain Testnet",
@@ -208,9 +205,9 @@ export const tpa1Basket = {
   symbol: "TPA1",
   token: address("0x8Dce6B4AC21769e437F414EA6dDacb407C5b4F83"),
   creatorLabel: "Governance timelock",
-  documentedFixtureCompositionLabel: "Documented testnet fixture composition",
+  documentedFixtureCompositionLabel: "Testnet composition",
   documentedFixtureCompositionNote:
-    "TPA1 is a testnet fixture example. This is not a production basket composition. Live launch compositions on later networks should be treated as TBD until finalized.",
+    "0.01 TSLA, 0.01 PLTR, and 0.01 AMD per TPA1 on this testnet.",
   documentedFixtureComposition: [
     { symbol: "TSLA", amountPerBasketToken: "0.01" },
     { symbol: "PLTR", amountPerBasketToken: "0.01" },

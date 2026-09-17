@@ -15,12 +15,8 @@ import {
 import { PINNED_SDK_COMMIT, PINNED_SDK_INSTALL } from "@/config/sources";
 
 /**
- * Verified exports from the deployment-pinned SDK revision.
- * Do not import master-only APIs against the recorded testnet addresses.
- *
- * `robinhoodChain` is generated from deployments/robinhood-chain-4663.json
- * and reports chainId 4663 (Robinhood Chain). It is a v4 infrastructure
- * binding, not the Statics testnet deployment map.
+ * Exports from the pinned SDK (`PINNED_SDK_COMMIT`).
+ * `robinhoodChain` is chain 4663 (Robinhood v4), not Statics testnet 46630.
  */
 export const pinnedSdk = {
   packageName: "@statics-protocol/sdk",
@@ -30,7 +26,7 @@ export const pinnedSdk = {
   robinhoodChainBinding: {
     network: robinhoodChain.network,
     chainId: robinhoodChain.chainId,
-    note: "SDK robinhoodChain bindings target Robinhood Chain (4663), not the recorded testnet Statics deployment (46630). Use official testnet deployment addresses for Statics contracts.",
+    note: "SDK robinhoodChain is chain 4663. Statics testnet contracts are on 46630.",
   },
 } as const;
 

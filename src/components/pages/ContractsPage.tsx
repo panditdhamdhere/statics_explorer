@@ -25,8 +25,8 @@ export function ContractsPage() {
   return (
     <AppShell
       kicker="Contracts"
-      title="Contract directory"
-      description="Verified addresses from the recorded Robinhood Chain Testnet integration-beta deployment. These are not mainnet addresses."
+      title="Contracts"
+      description="Statics addresses on Robinhood Chain Testnet."
     >
       <div className="mb-6 max-w-md">
         <Input
@@ -36,10 +36,10 @@ export function ContractsPage() {
         />
       </div>
 
-      <ContractTable title="Core deployment contracts" rows={primary} />
+      <ContractTable title="Core" rows={primary} />
       <div className="mt-10">
         <ContractTable
-          title="Additional verified deployment records"
+          title="Other"
           rows={additional}
         />
       </div>

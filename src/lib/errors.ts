@@ -17,24 +17,23 @@ export function toUserErrorMessage(error: unknown, fallback: string): string {
     return "The wallet request was rejected.";
   }
   if (TIMEOUT.test(raw)) {
-    return "The request timed out. Check the RPC configuration or try again.";
+    return "Request timed out.";
   }
   if (RPC.test(raw)) {
-    return "Unable to reach Robinhood Chain Testnet. Check the RPC configuration or try again.";
+    return "RPC request failed.";
   }
   if (NETWORK.test(raw) && /switch|add/i.test(raw)) {
-    return "Unable to switch to Robinhood Chain Testnet from this wallet.";
+    return "Couldn't switch to Robinhood Chain Testnet.";
   }
 
   if (/ERC721NonexistentToken|nonexistent token/i.test(raw)) {
-    return "Unable to read a position for this ID on the selected deployment.";
+    return "No position at this ID.";
   }
 
   return fallback;
 }
 
-export const UNAVAILABLE_FIELD =
-  "Unavailable from current deployment/interface";
+export const UNAVAILABLE_FIELD = "Unavailable";
 
 export const MISSING_RPC_MESSAGE =
-  "Live chain reads are disabled until NEXT_PUBLIC_ROBINHOOD_TESTNET_RPC_URL is set. Public deployment metadata is still available.";
+  "Set NEXT_PUBLIC_ROBINHOOD_TESTNET_RPC_URL to load onchain data.";

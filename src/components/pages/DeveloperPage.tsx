@@ -128,7 +128,7 @@ const state = await client.readContract({
 });
 
 if (!state.exists) {
-  throw new Error("Unable to read a position for this ID on the selected deployment.");
+  throw new Error("No position at this ID.");
 }
 
 const owner = await client.readContract({
@@ -149,17 +149,16 @@ export function DeveloperPage() {
   return (
     <AppShell
       kicker="Developer"
-      title="Developer integration"
-      description="How this explorer reads the recorded Robinhood Chain Testnet integration-beta and how the Interact page prepares, simulates, and submits a TPA1 mint."
+      title="Integration notes"
+      description="How this app talks to Statics on Robinhood Chain Testnet."
     >
       <div className="space-y-10">
         <section className="space-y-3">
           <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">1. Network setup</h2>
           <p className="text-sm leading-6 text-zinc-400">
-            Target Robinhood Chain Testnet, chain ID 46630. Provide the RPC through
-            NEXT_PUBLIC_ROBINHOOD_TESTNET_RPC_URL. Do not silently substitute an
-            unverified endpoint. The official public RPC is documented by Robinhood
-            Chain at the connecting guide.
+            Use Robinhood Chain Testnet (46630). Set
+            NEXT_PUBLIC_ROBINHOOD_TESTNET_RPC_URL. Public RPC:
+            https://rpc.testnet.chain.robinhood.com
           </p>
           <CodeBlock label="viem chain" code={networkSetup} />
         </section>
@@ -167,35 +166,28 @@ export function DeveloperPage() {
         <section className="space-y-3">
           <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">2. Install SDK</h2>
           <p className="text-sm leading-6 text-zinc-400">
-            Install from GitHub, not the npm registry, and pin the deployment
-            revision.
+            Install from GitHub and pin commit {PINNED_SDK_COMMIT}. Current
+            statics master includes APIs that are not on this Diamond.
           </p>
           <CodeBlock label="install" code={installSdk} />
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">3. Deployment compatibility</h2>
+          <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">3. SDK pin</h2>
           <p className="text-sm leading-6 text-zinc-400">
-            Official docs distinguish the deployment-pinned SDK (
-            {PINNED_SDK_COMMIT}) from current statics master. Current master includes
-            Operators launch/vesting, redrawable Genesis credit, and permissionless
-            general-pool APIs that are not deployed at these addresses.
-          </p>
-          <p className="text-sm leading-6 text-zinc-400">
-            The SDK export <code>robinhoodChain</code> reports chainId{" "}
-            {pinnedSdk.robinhoodChainBinding.chainId} and is generated from
-            deployments/robinhood-chain-4663.json. It is a v4 infrastructure binding,
-            not the Statics testnet address map. Use the recorded testnet deployment
-            snapshot for StaticsDiamond, USDstx, TPA1, and related contracts.
+            This repo vendors {PINNED_SDK_COMMIT}.{" "}
+            <code>robinhoodChain</code> is chain{" "}
+            {pinnedSdk.robinhoodChainBinding.chainId} (Robinhood v4), not Statics
+            testnet 46630. Contract addresses come from the testnet deployment
+            docs.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">4. Read-only contract access</h2>
+          <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">4. Reads</h2>
           <p className="text-sm leading-6 text-zinc-400">
-            Overview, Basket, Contracts, and PositionNFT remain read-only. They use
-            verified view methods from <code>staticsAbi</code> and{" "}
-            <code>basketTokenAbi</code>. Wallet connection is optional for those pages.
+            Overview, Basket, Contracts, and PositionNFT are read-only and use{" "}
+            <code>staticsAbi</code> / <code>basketTokenAbi</code>.
           </p>
           <CodeBlock label="read TPA1" code={readBasket} />
         </section>
@@ -206,8 +198,7 @@ export function DeveloperPage() {
             <li>Basket ID 0 · Tesla-Palantir-AMD-1 · TPA1</li>
             <li>Basket token {tpa1Basket.token}</li>
             <li>
-              Documented testnet fixture composition: 0.01 TSLA, 0.01 PLTR, 0.01 AMD
-              per BasketToken. This is not a production composition.
+              Documented composition: 0.01 TSLA, 0.01 PLTR, 0.01 AMD per TPA1.
             </li>
             <li>
               Live composition, if available, comes from basket(0).bundleAmounts.
@@ -218,21 +209,17 @@ export function DeveloperPage() {
         <section className="space-y-3">
           <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">6. PositionNFT inspection</h2>
           <p className="text-sm leading-6 text-zinc-400">
-            Use <code>positionState</code>, <code>ownerOf</code>,{" "}
-            <code>stakePosition</code>, <code>positionPortfolioCounts</code>, and
-            related views from the pinned ABI.{" "}
-            <code>decodePositionInfo</code> in the SDK decodes Uniswap v4
-            PositionManager packed ticks, not Statics PositionNFT state. Wallet
-            <code>mint()</code> of TPA1 does not create a PositionNFT.
+            PositionNFT views live on the Diamond.{" "}
+            <code>decodePositionInfo</code> is a Uniswap v4 helper, not a Statics
+            decoder. Minting TPA1 does not mint a PositionNFT.
           </p>
           <CodeBlock label="read PositionNFT" code={readPosition} />
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">7. How this integration works</h2>
+          <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">7. Mint flow</h2>
           <p className="text-sm leading-6 text-zinc-400">
-            The Interact page is an independent proof-of-concept for a documented
-            testnet action. It is not an official Statics product.
+            Interact quotes onchain, approves exact amounts, simulates, then mints.
           </p>
           <CodeBlock label="flow" code={mintFlow} />
         </section>
@@ -240,31 +227,25 @@ export function DeveloperPage() {
         <section className="space-y-3">
           <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">8. Transaction preparation</h2>
           <p className="text-sm leading-6 text-zinc-400">
-            The app reads live <code>quoteMint(0, shares)</code> from StaticsDiamond.
-            That quote is the maxAmountsIn vector. The local SDK helper{" "}
-            <code>quoteMint(snapshot, shares)</code> is not used as the submission
-            quote because onchain quotes remain authoritative.
+            Interact uses live <code>quoteMint(0, shares)</code> as{" "}
+            <code>maxAmountsIn</code>. The off-chain SDK helper is not the submit
+            quote.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">9. Approvals</h2>
           <p className="text-sm leading-6 text-zinc-400">
-            Each constituent is approved to StaticsDiamond for the exact quoted
-            amount. Unlimited approvals are not used. If allowance is already
-            sufficient, that approve step is skipped. Allowance is re-read after
-            each receipt.
+            Constituents are approved to StaticsDiamond for the quoted amount.
+            Existing allowance skips approve.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">10. Simulation and gas</h2>
           <p className="text-sm leading-6 text-zinc-400">
-            Every step is simulated with <code>simulateContract</code> before the
-            wallet prompt. If simulation reverts, the app does not send the
-            transaction. Gas is estimated from the simulation request or{" "}
-            <code>estimateContractGas</code>, then multiplied by the current gas
-            price. Failed estimates are shown as unavailable, not invented.
+            Each step is simulated with <code>simulateContract</code> before the
+            wallet prompt. Reverts are not sent.
           </p>
           <CodeBlock label="quote, approve, simulate, mint" code={quoteAndMint} />
         </section>
@@ -272,46 +253,28 @@ export function DeveloperPage() {
         <section className="space-y-3">
           <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">11. Submission, receipt, and refresh</h2>
           <p className="text-sm leading-6 text-zinc-400">
-            Calldata for mint is encoded with <code>buildMintCall</code>. The wallet
-            sends the transaction, then the app waits for the receipt. Success is
-            shown only after <code>receipt.status === &quot;success&quot;</code>.
-            Wallet ERC-20 balances are then re-read and compared with the pre-tx
-            snapshot.
+            Mint calldata comes from <code>buildMintCall</code>. Success waits for{" "}
+            <code>receipt.status === &quot;success&quot;</code>, then re-reads
+            balances.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">12. Faucet</h2>
           <p className="text-sm leading-6 text-zinc-400">
-            Testnet fixtures are claimed with the documented faucet{" "}
-            <code>claim()</code> selector via <code>buildTestnetFaucetClaimCall()</code>.
-            Cooldown and inventory are read from the live faucet contract.
+            Claim with <code>buildTestnetFaucetClaimCall()</code>. Cooldown is
+            onchain.
           </p>
           <CodeBlock label="faucet claim" code={faucetClaim} />
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">13. Important integration safety rules</h2>
+          <h2 className="text-[13px] font-medium uppercase tracking-[0.16em] text-muted">13. Notes</h2>
           <ul className="list-disc space-y-2 pl-5 text-sm text-zinc-400">
-            <li>Use the deployment-pinned SDK for the recorded testnet.</li>
-            <li>
-              Do not use current master-only APIs against older deployed addresses.
-            </li>
-            <li>Read active chain addresses and parameters from the live Diamond.</li>
-            <li>
-              Quote immediately before value-moving transactions. Onchain quotes remain
-              authoritative.
-            </li>
-            <li>
-              Use explicit minimums and maximums for value-moving calls.
-            </li>
-            <li>Scope approvals to intended actions.</li>
-            <li>Test against testnet before production.</li>
-            <li>
-              If an SDK helper is not in this pinned revision, see the
-              deployment-pinned SDK types for the exact method signature. Do not
-              assume a master-only export exists on these addresses.
-            </li>
+            <li>Pin the SDK to this testnet revision.</li>
+            <li>Read parameters from the live Diamond.</li>
+            <li>Quote immediately before mint.</li>
+            <li>Approve only the quoted amount.</li>
           </ul>
         </section>
 

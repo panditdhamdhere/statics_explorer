@@ -19,22 +19,22 @@ export function BasketPage() {
   return (
     <AppShell
       kicker="Basket"
-      title="TPA1 basket explorer"
-      description="Inspect the recorded genesis basket as a developer would: verified deployment metadata first, then live Diamond reads when the RPC is configured."
+      title="TPA1"
+      description="Genesis basket on Robinhood Chain Testnet."
     >
       <div className="mb-8 rounded-2xl border border-line bg-panel px-5 py-4 text-sm leading-6 text-muted">
-        Data on this page is separated into verified deployment metadata, documentation-derived composition, and live chain reads. No prices, volume, or TVL are shown. To mint TPA1 on this testnet, open the{" "}
+        Mint TPA1 from{" "}
         <Link href="/interact" className="text-foreground underline underline-offset-4">
           Interact
-        </Link>{" "}
-        flow.
+        </Link>
+        .
       </div>
 
       <section className="mb-8 grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Verified deployment metadata</CardTitle>
+              <CardTitle>Deployment</CardTitle>
               <span className="text-[10px] uppercase tracking-[0.14em] text-faint">
                 deployment
               </span>
@@ -196,7 +196,7 @@ export function BasketPage() {
           <ErrorState
             detail={toUserErrorMessage(
               error,
-              "Unable to read this contract on Robinhood Chain Testnet. Check the RPC configuration or try again.",
+              "RPC read failed.",
             )}
           />
         ) : live ? (

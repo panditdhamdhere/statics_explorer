@@ -31,8 +31,7 @@ function getConnectors(): CreateConnectorFn[] {
       showQrModal: true,
       metadata: {
         name: "Statics Explorer",
-        description:
-          "Developer explorer for the Statics Protocol Robinhood Chain Testnet integration-beta.",
+        description: "Statics explorer on Robinhood Chain Testnet.",
         url: appUrl,
         icons: [`${appUrl}/logo.svg`],
       },

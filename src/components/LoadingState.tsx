@@ -1,6 +1,6 @@
 export function LoadingState({
-  title = "Reading onchain data",
-  detail = "Querying the configured Robinhood Chain Testnet RPC.",
+  title = "Loading",
+  detail = "Reading the RPC.",
 }: {
   title?: string;
   detail?: string;

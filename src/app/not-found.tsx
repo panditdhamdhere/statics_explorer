@@ -8,11 +8,10 @@ export default function NotFound() {
       <p className="kicker">404</p>
       <h1 className="mt-3 text-3xl font-semibold tracking-tight">Page not found</h1>
       <p className="mt-3 max-w-md text-sm leading-6 text-muted">
-        This explorer only serves Overview, Basket, Interact, PositionNFT, Contracts,
-        Developer, and About.
+        This page does not exist.
       </p>
       <Link href="/" className={cn(buttonVariants(), "mt-8")}>
-        Return to overview
+        Back home
       </Link>
     </div>
   );

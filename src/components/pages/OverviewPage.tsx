@@ -23,20 +23,18 @@ export function OverviewPage() {
   return (
     <AppShell>
       <section className="mb-12 max-w-3xl space-y-4">
-        <Kicker>Explorer</Kicker>
+        <Kicker>Overview</Kicker>
         <h1 className="text-[2.35rem] font-semibold leading-[1.1] tracking-tight text-foreground sm:text-5xl">
-          Explore the recorded Statics deployment
+          Statics on Robinhood Chain Testnet
         </h1>
         <p className="max-w-2xl text-[15px] leading-7 text-muted">
-          A developer explorer for the Statics Protocol Robinhood Chain Testnet
-          integration-beta. You can inspect the recorded deployment and mint TPA1
-          on testnet. Addresses, methods, and SDK exports come from the official
-          snapshot.
+          Inspect TPA1, contracts, and PositionNFTs. Mint on testnet against
+          StaticsDiamond.
         </p>
         <NetworkBadge />
         <div className="pt-2">
           <Button asChild>
-            <Link href="/interact">Mint TPA1 on testnet</Link>
+            <Link href="/interact">Mint TPA1</Link>
           </Button>
         </div>
       </section>
@@ -47,29 +45,28 @@ export function OverviewPage() {
             <div className="p-5 sm:p-6">
               <Kicker>Deployment</Kicker>
               <p className="mt-3 text-xl font-semibold tracking-tight">
-                Integration-beta snapshot
+                Contracts
               </p>
               <p className="mt-2 text-sm leading-6 text-muted">
-                Verified from the official Robinhood testnet deployment record. Not
-                a production dashboard.
+                StaticsDiamond, TPA1, and related testnet addresses.
               </p>
               <div className="mt-6">
-                <DataRow label="Network" origin="record">
+                <DataRow label="Network" origin="docs">
                   {ROBINHOOD_TESTNET_NAME}
                 </DataRow>
-                <DataRow label="Chain ID" origin="record">
+                <DataRow label="Chain ID" origin="docs">
                   <span className="font-mono">{ROBINHOOD_TESTNET_CHAIN_ID}</span>
                 </DataRow>
-                <DataRow label="StaticsDiamond" origin="record">
+                <DataRow label="StaticsDiamond" origin="docs">
                   <AddressDisplay value={deployment.contracts.staticsDiamond.address} />
                 </DataRow>
-                <DataRow label="USDstx" origin="record">
+                <DataRow label="USDstx" origin="docs">
                   <AddressDisplay value={deployment.contracts.usdstx.address} />
                 </DataRow>
-                <DataRow label="TPA1" origin="record">
+                <DataRow label="TPA1" origin="docs">
                   <AddressDisplay value={tpa1Basket.token} />
                 </DataRow>
-                <DataRow label="SDK" origin="pin">
+                <DataRow label="SDK" origin="sdk">
                   <span className="font-mono text-[13px]">
                     {sdk.loaded ? "loaded" : "unavailable"} · {sdk.commit.slice(0, 12)}
                   </span>
@@ -78,19 +75,18 @@ export function OverviewPage() {
             </div>
 
             <div className="border-t border-line bg-panel-2 p-5 lg:border-l lg:border-t-0 sm:p-6">
-              <Kicker>Live reads</Kicker>
+              <Kicker>Onchain</Kicker>
               <p className="mt-3 text-xl font-semibold tracking-tight">
-                Diamond views
+                Diamond
               </p>
               <p className="mt-2 text-sm leading-6 text-muted">
-                Shown only after a successful RPC read. Missing selectors are omitted
-                or labeled unavailable.
+                Live views from the configured RPC.
               </p>
               <div className="mt-6 rounded-2xl border border-line bg-background/70 p-4">
                 {!rpcConfigured ? (
                   <p className="text-sm leading-6 text-muted">
-                    Configure the RPC URL to enable live Diamond reads. Deployment
-                    metadata remains available.
+                    Set NEXT_PUBLIC_ROBINHOOD_TESTNET_RPC_URL to load Diamond
+                    state.
                   </p>
                 ) : status === "loading" ? (
                   <LoadingState />
@@ -98,66 +94,66 @@ export function OverviewPage() {
                   <ErrorState
                     detail={toUserErrorMessage(
                       error,
-                      "Unable to read this contract on Robinhood Chain Testnet. Check the RPC configuration or try again.",
+                      "RPC read failed.",
                     )}
                   />
                 ) : snapshot ? (
                   <div>
                     {snapshot.name ? (
-                      <DataRow label="name()" origin="live">
+                      <DataRow label="name()" origin="onchain">
                         {snapshot.name}
                       </DataRow>
                     ) : null}
                     {snapshot.symbol ? (
-                      <DataRow label="symbol()" origin="live">
+                      <DataRow label="symbol()" origin="onchain">
                         {snapshot.symbol}
                       </DataRow>
                     ) : null}
                     {snapshot.basketCount !== undefined ? (
-                      <DataRow label="basketCount()" origin="live">
+                      <DataRow label="basketCount()" origin="onchain">
                         <span className="font-mono text-accent">
                           {snapshot.basketCount.toString()}
                         </span>
                       </DataRow>
                     ) : null}
                     {snapshot.nextPositionId !== undefined ? (
-                      <DataRow label="nextPositionId()" origin="live">
+                      <DataRow label="nextPositionId()" origin="onchain">
                         <span className="font-mono text-accent">
                           {snapshot.nextPositionId.toString()}
                         </span>
                       </DataRow>
                     ) : null}
                     {snapshot.positionCreationFee !== undefined ? (
-                      <DataRow label="positionCreationFee()" origin="live">
+                      <DataRow label="positionCreationFee()" origin="onchain">
                         <span className="font-mono">
                           {formatEth(snapshot.positionCreationFee)}
                         </span>
                       </DataRow>
                     ) : null}
                     {snapshot.creationFee !== undefined ? (
-                      <DataRow label="creationFee()" origin="live">
+                      <DataRow label="creationFee()" origin="onchain">
                         <span className="font-mono">{formatEth(snapshot.creationFee)}</span>
                       </DataRow>
                     ) : null}
                     {snapshot.totalStaked !== undefined ? (
-                      <DataRow label="totalStaked()" origin="live">
+                      <DataRow label="totalStaked()" origin="onchain">
                         <span className="font-mono">
                           {formatTokenAmount(snapshot.totalStaked, 18)} STATICS
                         </span>
                       </DataRow>
                     ) : null}
                     {snapshot.stakingToken ? (
-                      <DataRow label="stakingToken()" origin="live">
+                      <DataRow label="stakingToken()" origin="onchain">
                         <AddressDisplay value={snapshot.stakingToken} />
                       </DataRow>
                     ) : null}
                     {snapshot.staticsDollar ? (
-                      <DataRow label="staticsDollar()" origin="live">
+                      <DataRow label="staticsDollar()" origin="onchain">
                         <AddressDisplay value={snapshot.staticsDollar} />
                       </DataRow>
                     ) : null}
                     {snapshot.weth ? (
-                      <DataRow label="weth()" origin="live">
+                      <DataRow label="weth()" origin="onchain">
                         <AddressDisplay value={snapshot.weth} />
                       </DataRow>
                     ) : null}
@@ -169,11 +165,6 @@ export function OverviewPage() {
                   </div>
                 ) : null}
               </div>
-              {snapshot?.totalStaked !== undefined ? (
-                <p className="mt-3 text-[11px] leading-5 text-faint">
-                  totalStaked() is onchain staking-token units. It is not TVL or APY.
-                </p>
-              ) : null}
             </div>
           </div>
         </Card>
@@ -196,13 +187,13 @@ export function OverviewPage() {
                 Open basket explorer
               </Link>
             </div>
-            <DataRow label="Symbol" origin="record">
+            <DataRow label="Symbol" origin="docs">
               <span className="font-mono">{tpa1Basket.symbol}</span>
             </DataRow>
-            <DataRow label="Basket ID" origin="record">
+            <DataRow label="Basket ID" origin="docs">
               <span className="font-mono">{tpa1Basket.basketId.toString()}</span>
             </DataRow>
-            <DataRow label="Basket token" origin="record">
+            <DataRow label="Basket token" origin="docs">
               <AddressDisplay value={tpa1Basket.token} />
             </DataRow>
             <div className="mt-4 rounded-2xl border border-line bg-panel-2 p-4">
@@ -229,30 +220,30 @@ export function OverviewPage() {
         <Kicker className="mb-4">Developer</Kicker>
         <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2">
           <GuideLink
-            title="Official SDK"
-            body="Use the deployment-pinned SDK revision, not current master, against these recorded testnet addresses."
+            title="SDK"
+            body={`Pinned to ${staticsDeployment.sdkCommit.slice(0, 12)}.`}
             href={officialSources.sdk}
             external
           />
           <GuideLink
-            title="Contract integration"
-            body="Ordinary user actions go through a single address: StaticsDiamond."
+            title="Integration"
+            body="User actions go through StaticsDiamond."
             href={officialSources.integration}
             external
           />
           <GuideLink
             title="Mint TPA1"
-            body="Quote, exact approvals, simulation, and mint against the recorded testnet Diamond."
+            body="Quote, approve, and mint on testnet."
             href="/interact"
           />
           <GuideLink
             title="PositionNFT"
-            body="StaticsDiamond is also the PositionNFT contract. Inspect IDs with the deployed ABI views."
+            body="Read positions on the same Diamond."
             href="/position"
           />
           <GuideLink
-            title="Deployment reference"
-            body={`This app pins SDK commit ${staticsDeployment.sdkCommit.slice(0, 12)} and the recorded integration-beta addresses.`}
+            title="Deployment"
+            body="Testnet addresses and release notes."
             href={officialSources.deployment}
             external
           />

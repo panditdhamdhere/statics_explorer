@@ -8,8 +8,8 @@ export function AboutPage() {
   return (
     <AppShell
       kicker="About"
-      title="About Statics Explorer"
-      description="An independent developer explorer and testnet integration for the recorded Statics Protocol Robinhood Chain Testnet integration-beta deployment."
+      title="About"
+      description="Testnet explorer for Statics Protocol on Robinhood Chain."
     >
       <div className="space-y-6">
         <Card>
@@ -18,31 +18,24 @@ export function AboutPage() {
           </CardHeader>
           <CardContent className="space-y-3 text-sm leading-6 text-zinc-400">
             <p>
-              Built as an independent developer integration proof-of-concept for
-              Statics Protocol. It is not an official Statics product, is not
-              endorsed by Statics, and is not production-ready.
+              A community explorer for the Statics integration-beta on Robinhood
+              Chain Testnet. It is not affiliated with Statics.
             </p>
             <p>
-              The explorer demonstrates a deployment-compatible SDK pin, verified
-              testnet addresses, read-only contract access, and a documented TPA1
-              mint on Interact. Approvals are exact amounts to StaticsDiamond.
-              This is testnet only.
+              Reads run against the pinned SDK. Interact quotes, simulates, and
+              mints TPA1 with exact ERC-20 approvals to StaticsDiamond.
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Recorded deployment</CardTitle>
+            <CardTitle>Deployment</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
             <Row label="Network" value={staticsDeployment.network} />
             <Row label="Chain ID" value={String(staticsDeployment.chainId)} />
-            <Row label="Label" value={staticsDeployment.label} />
-            <Row
-              label="SDK commit"
-              value={staticsDeployment.sdkCommit}
-            />
+            <Row label="SDK commit" value={staticsDeployment.sdkCommit} />
             <Row
               label="Release start block"
               value={String(staticsDeployment.release.releaseStartBlock)}
@@ -60,26 +53,7 @@ export function AboutPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Not production</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm leading-6 text-zinc-400">
-            <p>
-              This deployment is an integration beta. Official docs state that
-              production must replace mock USDG and oracle fixtures, choose a
-              reviewed staking-token policy, verify governance delay, select
-              production roles, and qualify a single exact release revision.
-            </p>
-            <p>
-              Public basket creation stays protocol-only on this deployment. The
-              faucet, mock USDG, mock oracles, and owner-mintable STATICS token
-              are testnet fixtures.
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Official sources</CardTitle>
+            <CardTitle>Docs</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
             {Object.values(officialSources).map((href) => (

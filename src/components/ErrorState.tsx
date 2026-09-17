@@ -1,5 +1,5 @@
 export function ErrorState({
-  title = "Unable to complete this read",
+  title = "Couldn't load data",
   detail,
 }: {
   title?: string;

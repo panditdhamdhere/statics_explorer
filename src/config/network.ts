@@ -1,11 +1,10 @@
 import { defineChain } from "viem";
 
 /**
- * Official Robinhood Chain Testnet public RPC, documented at:
+ * Robinhood Chain Testnet public RPC.
  * https://docs.robinhood.com/chain/connecting/
  *
- * The explorer never uses this as a silent fallback for app reads.
- * Set NEXT_PUBLIC_ROBINHOOD_TESTNET_RPC_URL to enable live contract reads.
+ * Live reads use NEXT_PUBLIC_ROBINHOOD_TESTNET_RPC_URL only.
  */
 export const DOCUMENTED_ROBINHOOD_TESTNET_RPC_URL =
   "https://rpc.testnet.chain.robinhood.com";

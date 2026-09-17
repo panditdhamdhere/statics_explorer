@@ -72,7 +72,7 @@ export function ConnectWallet() {
           <p className="w-full text-right text-xs text-red-300">
             {toUserErrorMessage(
               switchError,
-              "Unable to switch to Robinhood Chain Testnet from this wallet.",
+              "Couldn't switch to Robinhood Chain Testnet.",
             )}
           </p>
         ) : null}
@@ -99,8 +99,7 @@ export function ConnectWallet() {
           </p>
           {uniqueConnectors.length === 0 ? (
             <p className="px-3 py-3 text-sm text-muted">
-              No wallet connector is available. Install a browser wallet, or
-              set NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID for WalletConnect.
+              No wallet found.
             </p>
           ) : (
             uniqueConnectors.map((connector) => (
@@ -128,8 +127,7 @@ export function ConnectWallet() {
             <p className="px-3 pt-2 text-xs text-red-300">
               {toUserErrorMessage(
                 connectError,
-                connectError.message ||
-                  "Unable to connect the wallet. Public reads still work without a connected wallet.",
+                connectError.message || "Couldn't connect.",
               )}
             </p>
           ) : null}
