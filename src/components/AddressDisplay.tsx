@@ -45,7 +45,7 @@ export function AddressDisplay({
       <button
         type="button"
         onClick={() => copy(value)}
-        className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-faint hover:bg-panel-2 hover:text-foreground"
+        className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800 hover:text-zinc-50"
         aria-label={copied ? "Copied" : "Copy"}
       >
         {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
@@ -55,7 +55,7 @@ export function AddressDisplay({
           href={href}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-faint hover:bg-panel-2 hover:text-foreground"
+          className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-zinc-600 text-zinc-200 hover:bg-zinc-800 hover:text-zinc-50"
           aria-label="Open in explorer"
         >
           <ExternalLink className="h-3.5 w-3.5" />

@@ -6,7 +6,8 @@
   --muted: #8b928b;
   --faint: #5c635c;
   --accent: #c8f24a;
-  --accent-fg: #06210a;
+  --accent-fg: #051408;
+  --ink: #051408;
   --panel: #0b0f0b;
   --panel-2: #101510;
   --line: #1c241c;
@@ -20,6 +21,7 @@
   --color-faint: var(--faint);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
+  --color-ink: var(--ink);
   --color-panel: var(--panel);
   --color-panel-2: var(--panel-2);
   --color-line: var(--line);
@@ -56,6 +58,10 @@ body {
 
 a {
   color: inherit;
+}
+
+.text-ink {
+  color: var(--ink);
 }
 
 ::selection {

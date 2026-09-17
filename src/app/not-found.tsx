@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export default function NotFound() {
   return (
@@ -9,10 +11,7 @@ export default function NotFound() {
         This explorer only serves Overview, Basket, Interact, PositionNFT, Contracts,
         Developer, and About.
       </p>
-      <Link
-        href="/"
-        className="mt-8 inline-flex h-9 items-center rounded-full bg-accent px-4 text-sm font-medium text-accent-fg"
-      >
+      <Link href="/" className={cn(buttonVariants(), "mt-8")}>
         Return to overview
       </Link>
     </div>

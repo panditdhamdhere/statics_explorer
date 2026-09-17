@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { AppShell } from "@/components/AppShell";
+import { Button } from "@/components/ui/button";
 import { AddressDisplay } from "@/components/AddressDisplay";
 import { ErrorState } from "@/components/ErrorState";
 import { LoadingState } from "@/components/LoadingState";
@@ -34,12 +35,9 @@ export function OverviewPage() {
         </p>
         <NetworkBadge />
         <div className="pt-2">
-          <Link
-            href="/interact"
-            className="inline-flex h-9 items-center rounded-full bg-accent px-4 text-sm font-medium text-accent-fg"
-          >
-            Mint TPA1 on testnet
-          </Link>
+          <Button asChild>
+            <Link href="/interact">Mint TPA1 on testnet</Link>
+          </Button>
         </div>
       </section>
 
